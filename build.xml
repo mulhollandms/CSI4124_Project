@@ -5,6 +5,11 @@
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="bin" location="bin"/>
+  <path id="project.class.path">
+          <pathelement location=".\bin"/>
+          <pathelement location=".\lib\colt.zip"/>
+          <pathelement location=".\lib\absmodjV3_20171114.zip"/>
+  </path>
 
   <target name="init">
     <!-- Create the time stamp -->
@@ -16,19 +21,18 @@
   <target name="compile" depends="init"
         description="compile the source">
     <!-- Compile the Java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${bin}">
-       <classpath>
-          <path path="@{classpath}"/>
-          <pathelement location=".\lib\colt.zip"/>
-          <pathelement location=".\lib\absmodjV3_20171114.zip"/>
-      </classpath>
+    <javac srcdir="${src}" destdir="${bin}" classpathref="project.class.path">
     </javac>
+  </target>
+
+  <target name="Experiment" description="test to see if the simulation works...">
+    <java classname="Experiment" fork="true" dir="${bin}" classpathref="project.class.path"></java>
   </target>
 
   <target name="clean"
         description="clean up">
     <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
+    <delete dir="${bin}"/>
     <delete dir="${dist}"/>
   </target>
 </project>
