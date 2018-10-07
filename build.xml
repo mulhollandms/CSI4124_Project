@@ -16,7 +16,13 @@
   <target name="compile" depends="init"
         description="compile the source">
     <!-- Compile the Java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${bin}"/>
+    <javac srcdir="${src}" destdir="${bin}">
+       <classpath>
+          <path path="@{classpath}"/>
+          <pathelement location=".\lib\colt.zip"/>
+          <pathelement location=".\lib\absmodjV3_20171114.zip"/>
+      </classpath>
+    </javac>
   </target>
 
   <target name="clean"
