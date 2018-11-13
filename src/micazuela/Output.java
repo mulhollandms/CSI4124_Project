@@ -2,9 +2,9 @@ package micazuela;
 
 class Output 
 {
-	ModelName model;
+	MiCazuela model;
 	
-	protected Output(ModelName md) { model = md; }
+	protected Output(MiCazuela md) { model = md; }
     // Use OutputSequence class to define Trajectory and Sample Sequences
     // Trajectory Sequences
 

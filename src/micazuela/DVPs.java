@@ -2,10 +2,10 @@ package micazuela;
 
 class DVPs 
 {
-	ModelName model;  // for accessing the clock
+	MiCazuela model;  // for accessing the clock
 	
 	// Constructor
-	protected DVPs(ModelName model) { this.model = model; }
+	protected DVPs(MiCazuela model) { this.model = model; }
 
 	// Translate deterministic value procedures into methods
         /* -------------------------------------------------

@@ -2,10 +2,10 @@ package micazuela;
 
 class UDPs 
 {
-	ModelName model;  // for accessing the clock
+	MiCazuela model;  // for accessing the clock
 	
 	// Constructor
-	protected UDPs(ModelName model) { this.model = model; }
+	protected UDPs(MiCazuela model) { this.model = model; }
 
 	// Translate User Defined Procedures into methods
     /*-------------------------------------------------
