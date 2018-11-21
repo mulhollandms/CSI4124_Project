@@ -34,4 +34,22 @@ class RVPs
 	    return(nxtInterArr+model.getClock());
 	}
 
+	protected double duCGarr(){
+		return 0.0;
+	}
+	protected double duSeatTakeOrder(){
+		return 0.0;
+	}
+	protected double duOrderPrep(){
+		return 0.0;
+	}
+	protected double duServeTime(){
+		return 0.0;
+	}
+	protected double duEatTime(){
+		return 0.0;
+	}
+	protected double duExitProcessTime(){
+		return 0.0;
+	}
 }

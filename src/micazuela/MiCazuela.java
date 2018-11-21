@@ -1,5 +1,9 @@
 package micazuela;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import micazuela.entities.*;
 import simulationModelling.AOSimulationModel;
 import simulationModelling.Behaviour;
 import simulationModelling.SequelActivity;
@@ -17,6 +21,9 @@ public class MiCazuela extends AOSimulationModel
 	// Define the reference variables to the various 
 	// entities with scope Set and Unary
 	// Objects can be created here or in the Initialise Action
+	HashSet<Tables> rgTables = new HashSet<Tables>();
+	HashSet<Personnel> rgPersonnel = new HashSet<Personnel>();
+	HashSet<ArrayList<CustomerGroup>> qService = new HashSet<ArrayList<CustomerGroup>>();
 
 	/* Input Variables */
 	// Define any Independent Input Varaibles here
