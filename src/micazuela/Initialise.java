@@ -22,16 +22,14 @@ class Initialise extends ScheduledAction
 	{
 		// System Initialisation
 				// Add initilisation instructions
-		model.rgPersonnel[Constants.COOKS].numTotal = model.numCooks;
-		model.rgPersonnel[Constants.WAITERS].numTotal = model.numWaiters;
-		
-		for(Tables t : model.rgTables){
-			t.list.clear();
-		}
-		// for(Service s : model.qService){
-		// 	s.list.clear();
-		// }
+		model.rgTables[Constants.SMALL].clear();
+		model.rgTables[Constants.LARGE].clear();
 
+		model.rgPersonnel[Constants.COOKS].numBusy = 0;
+		model.rgPersonnel[Constants.WAITERS].numBusy = 0;
+
+		for(Service qS : model.qService)
+			qS.clear();
 	}
 	
 

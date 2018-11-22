@@ -20,7 +20,7 @@ public class DeliverFood extends ConditionalActivity{
 
     @Override
     public void startingEvent() {
-        icCustomerGroup = model.qService[Constants.OUT].dequeue();
+        icCustomerGroup = model.qService[Constants.OUT].spRemoveQueue();
         model.rgPersonnel[Constants.WAITERS].numBusy++;
     }
 

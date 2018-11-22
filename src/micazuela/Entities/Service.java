@@ -2,15 +2,13 @@ package micazuela.entities;
 
 import java.util.ArrayList;
 
-public class Service{
-    private ArrayList<CustomerGroup> list = new ArrayList<CustomerGroup>();
-    public int length = -1;
-    public int getN(){return list.size();}
+public class Service extends ArrayList<CustomerGroup>{
+    public int getN(){return this.size();}
 
-    public void enqueue(CustomerGroup icCustomerGroup){
-        list.add(icCustomerGroup);
+    public boolean spInsertQueue(CustomerGroup icCustomerGroup){
+        return this.add(icCustomerGroup);
     }
-    public CustomerGroup dequeue(){
-        return list.remove(0);
+    public CustomerGroup spRemoveQueue(){
+        return this.remove(0);
     }
 }

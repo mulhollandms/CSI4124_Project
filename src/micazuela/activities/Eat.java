@@ -27,7 +27,7 @@ public class Eat extends SequelActivity{
 
     @Override
     protected void terminatingEvent() {
-        model.qService[Constants.PAYMENT].enqueue(icCustomerGroup);
+        model.qService[Constants.PAYMENT].spInsertQueue(icCustomerGroup);
     }
     
 

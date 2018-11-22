@@ -23,7 +23,7 @@ public class PayCleanTable extends ConditionalActivity{
 
     @Override
     public void startingEvent() {
-        icCustomerGroup = model.qService[Constants.PAYMENT].dequeue();
+        icCustomerGroup = model.qService[Constants.PAYMENT].spRemoveQueue();
         model.rgPersonnel[Constants.WAITERS].numBusy++;
     }
 

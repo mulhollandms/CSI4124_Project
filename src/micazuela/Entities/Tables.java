@@ -2,12 +2,11 @@ package micazuela.entities;
 
 import java.util.ArrayList;
 
-public class Tables{
+public class Tables extends ArrayList<CustomerGroup>{
     public int capacity;
-    public ArrayList<CustomerGroup> list;
 
-    public int getN(){return list.size();}
-    public void insertGrp(CustomerGroup icCustomerGroup) {list.add(icCustomerGroup);}
-    public boolean removeGrp(CustomerGroup icCustomerGroup){return list.remove(icCustomerGroup);}
+    public int getN(){return this.size();}
+    public void insertGrp(CustomerGroup icCustomerGroup) {this.add(icCustomerGroup);}
+    public boolean removeGrp(CustomerGroup icCustomerGroup){return this.remove(icCustomerGroup);}
 }
 

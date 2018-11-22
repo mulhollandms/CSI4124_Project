@@ -20,13 +20,13 @@ public class CookFood extends ConditionalActivity {
 
     @Override
     public void startingEvent() {
-        icCustomerGroup = model.qService[Constants.IN].dequeue();
+        icCustomerGroup = model.qService[Constants.IN].spRemoveQueue();
         model.rgPersonnel[Constants.COOKS].numBusy++;
     }
 
     @Override
     protected void terminatingEvent() {
-        model.qService[Constants.OUT].enqueue(icCustomerGroup);
+        model.qService[Constants.OUT].spInsertQueue(icCustomerGroup);
         model.rgPersonnel[Constants.COOKS].numBusy--;
     }
 
