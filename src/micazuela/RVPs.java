@@ -1,6 +1,7 @@
 package micazuela;
 
 import cern.jet.random.Exponential;
+import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister;
 
 public class RVPs 
@@ -18,7 +19,11 @@ public class RVPs
 		this.model = model; 
 		// Set up distribution functions
 		interArrDist = new Exponential(1.0/WMEAN1,  
-				                       new MersenneTwister(sd.seed1));
+									   new MersenneTwister(sd.seed1));
+
+		seatTakeOrder = new Normal(MEAN_SEAT+MEAN_TAKEORDER+MEAN_DELIVERORDER,
+										SD_SEAT+SD_TAKEORDER+SD_DELIVERORDER,
+										new MersenneTwister());
 	}
 	
 	/* Random Variate Procedure for Arrivals */
@@ -40,9 +45,19 @@ public class RVPs
 	public int uCustomerGroupSize(){
 		return 0;
 	}
+
+	double MEAN_SEAT=0.1, MEAN_TAKEORDER=0.1, MEAN_DELIVERORDER=0.1;
+	double SD_SEAT=0.1, SD_TAKEORDER=0.1, SD_DELIVERORDER=0.1;
+	double MEAN_TAKEORDER_DELIVER_AHD=0.1, SD_TAKEORDER_DELIVER_AHD=0.1;
+	Normal seatTakeOrder;
+
 	public double duSeatTakeOrder(){
-		return 0.0;
+		if(model.usingAHD)
+			return seatTakeOrder.nextDouble(MEAN_SEAT+MEAN_TAKEORDER_DELIVER_AHD, SD_SEAT+SD_TAKEORDER_DELIVER_AHD);
+		else
+			return seatTakeOrder.nextDouble();
 	}
+
 	public double duOrderPrep(){
 		return 0.0;
 	}
