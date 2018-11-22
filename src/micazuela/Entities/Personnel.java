@@ -1,6 +1,6 @@
 package micazuela.entities;
 
 public class Personnel{
-    int numBusy;
-    int numTotal;
+    public int numBusy = 0;
+    public int numTotal = 2;
 }

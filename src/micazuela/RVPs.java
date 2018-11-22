@@ -3,7 +3,7 @@ package micazuela;
 import cern.jet.random.Exponential;
 import cern.jet.random.engine.MersenneTwister;
 
-class RVPs 
+public class RVPs 
 {
 	MiCazuela model; // for accessing the clock
     // Data Models - i.e. random veriate generators for distributions
@@ -34,22 +34,25 @@ class RVPs
 	    return(nxtInterArr+model.getClock());
 	}
 
-	protected double duCGarr(){
+	public double duCGarr(){
 		return 0.0;
 	}
-	protected double duSeatTakeOrder(){
+	public int uCustomerGroupSize(){
+		return 0;
+	}
+	public double duSeatTakeOrder(){
 		return 0.0;
 	}
-	protected double duOrderPrep(){
+	public double duOrderPrep(){
 		return 0.0;
 	}
-	protected double duServeTime(){
+	public double duServeTime(){
 		return 0.0;
 	}
-	protected double duEatTime(){
+	public double duEatTime(){
 		return 0.0;
 	}
-	protected double duExitProcessTime(){
+	public double duExitProcessTime(){
 		return 0.0;
 	}
 }

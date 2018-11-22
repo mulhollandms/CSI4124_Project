@@ -1,6 +1,5 @@
 package micazuela;
 
-import java.util.ArrayList;
 import micazuela.entities.*;
 
 import simulationModelling.ScheduledAction;
@@ -23,12 +22,15 @@ class Initialise extends ScheduledAction
 	{
 		// System Initialisation
 				// Add initilisation instructions
+		model.rgPersonnel[Constants.COOKS].numTotal = model.numCooks;
+		model.rgPersonnel[Constants.WAITERS].numTotal = model.numWaiters;
+		
 		for(Tables t : model.rgTables){
 			t.list.clear();
 		}
-		for(ArrayList<CustomerGroup> l : model.qService){
-			l.clear();
-		}
+		// for(Service s : model.qService){
+		// 	s.list.clear();
+		// }
 
 	}
 	

@@ -1,6 +1,8 @@
 package micazuela;
 
-class UDPs 
+import micazuela.entities.CustomerGroup;
+
+public class UDPs 
 {
 	MiCazuela model;  // for accessing the clock
 	
@@ -24,6 +26,16 @@ class UDPs
         	return -1;
         }
 	------------------------------------------------------------*/
-	
+	public int tableSize(CustomerGroup icCustomerGroup){
+		return icCustomerGroup.size < 3 ? Constants.SMALL : Constants.LARGE;
+	}
+
+	public int canSeatGroup(int icCustomerGroupSize){
+		if(model.rgTables[icCustomerGroupSize].getN() < model.rgTables[icCustomerGroupSize].capacity){
+			return icCustomerGroupSize;
+		} else {
+			return Constants.NONE;
+		}
+	}
 	
 }
