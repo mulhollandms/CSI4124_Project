@@ -4,16 +4,27 @@ import cern.jet.random.engine.RandomSeedGenerator;
 
 public class Seeds 
 {
-	int seed1;   // comment 1
-	int seed2;   // comment 2
-	int seed3;   // comment 3
-	int seed4;   // comment 4
+	int custArr;   // customer arrivals
+	int seatTakeOrder;   // seat take order
+	int orderPrep;   // order prepare
+	int foodDelivery;   // deliver food
+	int eatTm;   // eat time
+	int payLeave;   // pay and leave
 
 	public Seeds(RandomSeedGenerator rsg)
 	{
-		seed1=rsg.nextSeed();
-		seed2=rsg.nextSeed();
-		seed3=rsg.nextSeed();
-		seed4=rsg.nextSeed();
+		custArr=rsg.nextSeed();
+		seatTakeOrder=rsg.nextSeed();
+		orderPrep=rsg.nextSeed();
+		foodDelivery=rsg.nextSeed();
+		eatTm=rsg.nextSeed();
+		payLeave=rsg.nextSeed();
 	}
+	
+	public String toString() {
+		return("CustArr: "+custArr+"  seatTakeOrder: "+seatTakeOrder+"  orderPrep: "+orderPrep
+				+"  foodDelivery: "+foodDelivery+"  eatTm: "+eatTm+"  PayLeave: "+payLeave);
+	}
+
+	
 }
