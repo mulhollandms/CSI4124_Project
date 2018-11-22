@@ -1,6 +1,5 @@
 package micazuela;
 
-import cern.jet.random.Exponential;
 import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister;
 
@@ -18,25 +17,10 @@ public class RVPs
 	{ 
 		this.model = model; 
 		// Set up distribution functions
-		interArrDist = new Exponential(1.0/WMEAN1,  
-									   new MersenneTwister(sd.seed1));
 
 		seatTakeOrder = new Normal(MEAN_SEAT+MEAN_TAKEORDER+MEAN_DELIVERORDER,
-										SD_SEAT+SD_TAKEORDER+SD_DELIVERORDER,
+										VAR_SEAT+VAR_TAKEORDER+VAR_DELIVERORDER,
 										new MersenneTwister());
-	}
-	
-	/* Random Variate Procedure for Arrivals */
-	private Exponential interArrDist;  // Exponential distribution for interarrival times
-	private final double WMEAN1=10.0;
-	protected double duInput()  // for getting next value of duInput
-	{
-	    double nxtInterArr;
-
-        nxtInterArr = interArrDist.nextDouble();
-	    // Note that interarrival time is added to current
-	    // clock value to get the next arrival time.
-	    return(nxtInterArr+model.getClock());
 	}
 
 	public double duCGarr(){
@@ -46,14 +30,13 @@ public class RVPs
 		return 0;
 	}
 
-	double MEAN_SEAT=0.1, MEAN_TAKEORDER=0.1, MEAN_DELIVERORDER=0.1;
-	double SD_SEAT=0.1, SD_TAKEORDER=0.1, SD_DELIVERORDER=0.1;
-	double MEAN_TAKEORDER_DELIVER_AHD=0.1, SD_TAKEORDER_DELIVER_AHD=0.1;
+	static final double MEAN_SEAT=2.0, MEAN_TAKEORDER=3.0, MEAN_DELIVERORDER=2.0;
+	static final double VAR_SEAT=0.5, VAR_TAKEORDER=0.7, VAR_DELIVERORDER=0.5;
+	static final double MEAN_TAKEORDER_DELIVER_AHD=1.5, VAR_TAKEORDER_DELIVER_AHD=1.2;
 	Normal seatTakeOrder;
-
 	public double duSeatTakeOrder(){
 		if(model.usingAHD)
-			return seatTakeOrder.nextDouble(MEAN_SEAT+MEAN_TAKEORDER_DELIVER_AHD, SD_SEAT+SD_TAKEORDER_DELIVER_AHD);
+			return seatTakeOrder.nextDouble(MEAN_SEAT+MEAN_TAKEORDER_DELIVER_AHD, VAR_SEAT+VAR_TAKEORDER_DELIVER_AHD);
 		else
 			return seatTakeOrder.nextDouble();
 	}
