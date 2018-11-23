@@ -1,7 +1,7 @@
 package micazuela;
 
 import micazuela.entities.*;
-
+import simulationModelling.OutputSequence;
 import simulationModelling.ScheduledAction;
 
 class Initialise extends ScheduledAction
@@ -31,6 +31,11 @@ class Initialise extends ScheduledAction
 
 		for(Service qS : model.qService)
 			qS.clear();
+		
+		model.output.timeSpent = new OutputSequence("phiTimeSpent");
+		model.output.timeWaiting = new OutputSequence("phiTimeWaiting");
+		model.output.countCustomerGroupBalking = 0;
+		model.output.profitDay -= model.numCooks*Constants.COOK_SALARY+model.numWaiters*Constants.WAITER_SALARY+Constants.OVERHEAD_COST;
 	}
 	
 
