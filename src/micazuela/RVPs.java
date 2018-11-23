@@ -53,7 +53,10 @@ public class RVPs
 		} else {
 			x = 60/MEAN_ARR_5;
 		}
-		return cgArr.nextDouble(model.numArrivals/x);
+		double arriveAt = cgArr.nextDouble(model.numArrivals/x)+model.getClock();
+		if(arriveAt > model.closingTime)
+			return -1.0;
+		return arriveAt;
 	}
 
 	static final double MIN_CGCOUNT=30.0;

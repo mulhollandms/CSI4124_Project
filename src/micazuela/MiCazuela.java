@@ -17,6 +17,7 @@ public class MiCazuela extends AOSimulationModel
 	public int rgTablesLargeCap=4;
 	public int numCooks=2,numWaiters=2;
 	public boolean usingAHD=false;
+	public double closingTime;
 	/*-------------Entity Data Structures-------------------*/
 	/* Group and Queue Entities */
 	// Define the reference variables to the various 
@@ -42,13 +43,14 @@ public class MiCazuela extends AOSimulationModel
 
 
 	// Constructor
-	public MiCazuela(double t0time, double tftime, int rgTablesLargeCap, int numCooks, int numWaiters, boolean usingAHD,/*define other args,*/ Seeds sd)
+	public MiCazuela(double t0time, double tftime, int rgTablesLargeCap, int numCooks, int numWaiters, boolean usingAHD, Seeds sd, boolean traceLogFlag)
 	{
 		// Initialise parameters here
 		this.rgTablesLargeCap=rgTablesLargeCap;
 		this.numCooks=numCooks;
 		this.numWaiters=numWaiters;
 		this.usingAHD=usingAHD;
+		this.traceLogFlag=traceLogFlag;
 
 		// Create RVP object with given seed
 		rvp = new RVPs(this,sd);
@@ -67,8 +69,8 @@ public class MiCazuela extends AOSimulationModel
 			qService[i]=new Service();
 		
 		// Initialise the simulation model
-		initAOSimulModel(t0time,tftime);   
-
+		initAOSimulModel(t0time,tftime);
+		closingTime=tftime;
 		     // Schedule the first arrivals and employee scheduling
 		Initialise init = new Initialise(this);
 		scheduleAction(init);  // Should always be first one scheduled.
@@ -115,10 +117,20 @@ public class MiCazuela extends AOSimulationModel
 		// Check preconditions of Interruptions in Extended Activities
 	}
 	
+	boolean traceLogFlag = false;
 	public void eventOccured()
 	{
-		System.out.printf("-------->Clock: %f<-----------------\n",getClock());
-		this.showSBL();
+		// System.out.printf("-------->Clock: %f<-----------------\n",getClock());
+		if(traceLogFlag){
+			System.out.printf("-------->Clock: %f<-----------------\n",getClock());
+			System.out.printf("Current State:\nQ.Service[LARGE].n = %d, Q.Service[SMALL].n = %d\n\n",qService[Constants.LARGE].getN(),qService[Constants.SMALL].getN());
+			System.out.printf("RG.Personnel[COOKS].numBusy = %d, RG.Personnel[WAITERS].numBusy = %d\n",rgPersonnel[Constants.COOKS].numBusy,rgPersonnel[Constants.WAITERS].numBusy);
+			System.out.printf("RG.Tables[LARGE].n = %d, RG.Tables[SMALL].n = %d\n\n",rgTables[Constants.LARGE].getN(),rgTables[Constants.SMALL].getN());
+			System.out.printf("Q.Service[IN].n = %d, Q.Service[OUT].n = %d, Q.Service[PAYMENT].n = %d\n\n",qService[Constants.IN].getN(),qService[Constants.OUT].getN(),qService[Constants.PAYMENT].getN());
+			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTablesLargeCap,numCooks);
+			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",numWaiters,usingAHD);
+			this.showSBL();
+		}
 		// Can add other debug code to monitor the status of the system
 		// See examples for suggestions on setup logging
 
@@ -133,7 +145,6 @@ public class MiCazuela extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
-
 }
 
 
