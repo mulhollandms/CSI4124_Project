@@ -17,6 +17,7 @@ public class MiCazuela extends AOSimulationModel
 	public int rgTablesLargeCap=4;
 	public int numCooks=2,numWaiters=2;
 	public boolean usingAHD=false;
+	public double closingTime;
 	/*-------------Entity Data Structures-------------------*/
 	/* Group and Queue Entities */
 	// Define the reference variables to the various 
@@ -68,7 +69,7 @@ public class MiCazuela extends AOSimulationModel
 		
 		// Initialise the simulation model
 		initAOSimulModel(t0time,tftime);   
-
+		closingTime=tftime;
 		     // Schedule the first arrivals and employee scheduling
 		Initialise init = new Initialise(this);
 		scheduleAction(init);  // Should always be first one scheduled.

@@ -9,7 +9,7 @@ public class Arrivals extends ScheduledAction{
     public Arrivals(MiCazuela model){this.model = model;}
     @Override
     protected double timeSequence() {
-        return model.getClock()+model.rvp.duCGarr();
+        return model.rvp.duCGarr();
     }
 
     @Override
