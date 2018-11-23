@@ -2,6 +2,7 @@
 // Description:
 
 import micazuela.*;
+import outputAnalysis.ConfidenceInterval;
 import cern.jet.random.engine.*;
 
 // Main Method: Experiments
@@ -10,10 +11,10 @@ class Experiment
 {
    public static void main(String[] args)
    {
-       int i, NUMRUNS = 1; 
+       int i, NUMRUNS = 50; 
        double startTime=0.0, endTime=360.0;
        Seeds[] sds = new Seeds[NUMRUNS];
-       MiCazuela mname;  // Simulation object
+       MiCazuela simModel;  // Simulation object
 
        // Lets get a set of uncorrelated seeds
        RandomSeedGenerator rsg = new RandomSeedGenerator();
@@ -22,17 +23,26 @@ class Experiment
        
        // Loop for NUMRUN simulation runs for each case
        // Case 1
-       System.out.println(" Case 1");
+       double[] profitDay = new double[NUMRUNS];
+       double[] balkCount = new double[NUMRUNS];
+        double[] waitTime = new double[NUMRUNS];
+        double[] timeSpent = new double[NUMRUNS];
+       System.out.println("Base Case");
        for(i=0 ; i < NUMRUNS ; i++)
        {
-          mname = new MiCazuela(startTime,endTime,4,2,2,false,sds[i]);
-          mname.runSimulation();
-          // See examples for hints on collecting output
-          // and developping code for analysis
-          System.out.printf("Total Daily Profit:\t%f\n",mname.output.profitDay);
-          System.out.printf("Total Customers Balked:\t%d\n",mname.output.countCustomerGroupBalking);
-          System.out.printf("Average Time Spent:\t%f\n",mname.output.avgTimeSpent());
-          System.out.printf("Average Time Waiting:\t%f\n",mname.output.avgTimeWaiting());
+            simModel = new MiCazuela(startTime,endTime,4,2,2,false,sds[i],true);
+            simModel.runSimulation();
+            profitDay[i]=simModel.output.profitDay;
+            balkCount[i]=simModel.output.countCustomerGroupBalking;
+            waitTime[i]=simModel.output.avgTimeWaiting();
+            timeSpent[i]=simModel.output.avgTimeSpent();
+            // See examples for hints on collecting output
+            // and developping code for analysis
        }
+       ConfidenceInterval profitConf = new ConfidenceInterval(profitDay, 0.9973);
+       ConfidenceInterval balkConf = new ConfidenceInterval(balkCount, 0.9973);
+       ConfidenceInterval waitConf = new ConfidenceInterval(waitTime, 0.9973);
+       ConfidenceInterval spentConf = new ConfidenceInterval(timeSpent, 0.9973);
+       System.out.printf("profit range: CI(%.2f,%.2f)\naverage balking: %.2f\ntime spent: CI(%.2f,%.2f)\nwaiting time: CI(%.2f,%.2f)\n",profitConf.getCfMin(),profitConf.getCfMax(),balkConf.getPointEstimate(),spentConf.getCfMin(),spentConf.getCfMax(),waitConf.getCfMin(),waitConf.getCfMax());
    }
 }
