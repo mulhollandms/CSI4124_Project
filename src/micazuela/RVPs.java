@@ -23,7 +23,8 @@ public class RVPs
 
 		seatTakeOrder = new Normal(MEAN_SEAT+MEAN_TAKEORDER+MEAN_DELIVERORDER,
 										VAR_SEAT+VAR_TAKEORDER+VAR_DELIVERORDER,
-										new MersenneTwister());
+										new MersenneTwister(sd.seatTakeOrder));
+		customerBill = new Uniform(MIN_CUSTOMER_BILL,MAX_CUSTOMER_BILL,sd.custBill);
 
 	}
 
@@ -39,6 +40,13 @@ public class RVPs
 
 	public int uCustomerGroupSize(){
 		return 0;
+	}
+
+	static final double MIN_CUSTOMER_BILL=10.0;
+	static final double MAX_CUSTOMER_BILL=16.0;
+	Uniform customerBill;
+	public double duCustomerBill(){
+		return customerBill.nextDouble();
 	}
 
 	static final double MEAN_SEAT=2.0, MEAN_TAKEORDER=3.0, MEAN_DELIVERORDER=2.0;
