@@ -1,6 +1,7 @@
 package micazuela;
 
 import cern.jet.random.Normal;
+import cern.jet.random.Uniform;
 import cern.jet.random.engine.MersenneTwister;
 
 public class RVPs 
@@ -18,14 +19,24 @@ public class RVPs
 		this.model = model; 
 		// Set up distribution functions
 
+		cgArrCount = new Uniform(MIN_CGCOUNT,MAX_CGCOUNT,sd.custArrCount);
+
 		seatTakeOrder = new Normal(MEAN_SEAT+MEAN_TAKEORDER+MEAN_DELIVERORDER,
 										VAR_SEAT+VAR_TAKEORDER+VAR_DELIVERORDER,
 										new MersenneTwister());
+
 	}
 
 	public double duCGarr(){
 		return 0.0;
 	}
+
+	static final double MIN_CGCOUNT=30.0,MAX_CGCOUNT=50.0;
+	Uniform cgArrCount;
+	public int duCGArrCount(){
+		return cgArrCount.nextInt();
+	}
+
 	public int uCustomerGroupSize(){
 		return 0;
 	}
