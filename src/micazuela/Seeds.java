@@ -5,6 +5,7 @@ import cern.jet.random.engine.RandomSeedGenerator;
 public class Seeds 
 {
 	int custArr;   // customer arrivals
+	int custArrCount; //customer arrival count
 	int seatTakeOrder;   // seat take order
 	int orderPrep;   // order prepare
 	int foodDelivery;   // deliver food
@@ -14,6 +15,7 @@ public class Seeds
 	public Seeds(RandomSeedGenerator rsg)
 	{
 		custArr=rsg.nextSeed();
+		custArrCount=rsg.nextSeed();
 		seatTakeOrder=rsg.nextSeed();
 		orderPrep=rsg.nextSeed();
 		foodDelivery=rsg.nextSeed();
