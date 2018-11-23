@@ -22,7 +22,7 @@ class Initialise extends ScheduledAction
 	{
 		// System Initialisation
 				// Add initilisation instructions
-		model.numArrivals = model.rvp.duCGArrCount();
+		// model.numArrivals = model.rvp.duCGArrCount();
 		model.rgTables[Constants.SMALL].clear();
 		model.rgTables[Constants.LARGE].clear();
 
