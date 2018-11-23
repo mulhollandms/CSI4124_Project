@@ -11,7 +11,7 @@ public class SeatTakeOrder extends ConditionalActivity{
     int tableSize;
     public static boolean precondition(MiCazuela simModel, int tableSize){
         return simModel.rgPersonnel[Constants.WAITERS].numBusy < simModel.rgPersonnel[Constants.WAITERS].numTotal
-            && simModel.qService[Constants.LARGE].getN() > 0 && simModel.udp.canSeatGroup(tableSize)!=Constants.NONE;
+            && simModel.qService[tableSize].getN() > 0 && simModel.udp.canSeatGroup(tableSize)!=Constants.NONE;
     }
 
     public SeatTakeOrder(MiCazuela model,int tableSize){
