@@ -23,7 +23,7 @@ public class MiCazuela extends AOSimulationModel
 	// Objects can be created here or in the Initialise Action
 	public Tables [] rgTables = new Tables[2];
 	public Personnel [] rgPersonnel = new Personnel[2];
-	public Service [] qService = new Service[2];
+	public Service [] qService = new Service[5];
 
 	/* Input Variables */
 	// Define any Independent Input Varaibles here
