@@ -15,4 +15,7 @@ class Output
     // Sequences - add them here
 
     // SSOVs
+    public double profitDay;
+    public int countCustomerGroupBalking;
+    
 }

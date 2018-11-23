@@ -27,7 +27,7 @@ public class MiCazuela extends AOSimulationModel
 
 	/* Input Variables */
 	// Define any Independent Input Varaibles here
-	
+	public int numArrivals = 40;
 	// References to RVP and DVP objects
 	public RVPs rvp;  // Reference to rvp object - object created in constructor
 	public DVPs dvp = new DVPs(this);  // Reference to dvp object
@@ -80,6 +80,16 @@ public class MiCazuela extends AOSimulationModel
 	public void testPreconditions(Behaviour behObj)
 	{
 		reschedule (behObj);
+		if(SeatTakeOrder.precondition(this,Constants.LARGE)){
+			SeatTakeOrder act = new SeatTakeOrder(this, Constants.LARGE);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+		if(SeatTakeOrder.precondition(this,Constants.SMALL)){
+			SeatTakeOrder act = new SeatTakeOrder(this, Constants.SMALL);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
 		// Check preconditions of Conditional Activities
 		if(CookFood.precondition(this)){
 			CookFood act = new CookFood(this);
@@ -96,16 +106,7 @@ public class MiCazuela extends AOSimulationModel
 			act.startingEvent();
 			scheduleActivity(act);
 		}
-		if(SeatTakeOrder.precondition(this,Constants.LARGE)){
-			SeatTakeOrder act = new SeatTakeOrder(this, Constants.LARGE);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
-		if(SeatTakeOrder.precondition(this,Constants.SMALL)){
-			SeatTakeOrder act = new SeatTakeOrder(this, Constants.SMALL);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
+		
 		// Check preconditions of Interruptions in Extended Activities
 	}
 	
