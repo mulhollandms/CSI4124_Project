@@ -11,7 +11,7 @@ class Experiment
    public static void main(String[] args)
    {
        int i, NUMRUNS = 30; 
-       double startTime=0.0, endTime=660.0;
+       double startTime=0.0, endTime=360.0;
        Seeds[] sds = new Seeds[NUMRUNS];
        MiCazuela mname;  // Simulation object
 
@@ -25,7 +25,7 @@ class Experiment
        System.out.println(" Case 1");
        for(i=0 ; i < NUMRUNS ; i++)
        {
-          mname = new MiCazuela(startTime,endTime,sds[i]);
+          mname = new MiCazuela(startTime,endTime,4,2,2,false,sds[i]);
           mname.runSimulation();
           // See examples for hints on collecting output
           // and developping code for analysis

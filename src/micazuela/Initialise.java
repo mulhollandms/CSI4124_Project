@@ -1,5 +1,7 @@
 package micazuela;
 
+import micazuela.entities.*;
+
 import simulationModelling.ScheduledAction;
 
 class Initialise extends ScheduledAction
@@ -19,7 +21,15 @@ class Initialise extends ScheduledAction
 	protected void actionEvent() 
 	{
 		// System Initialisation
-                // Add initilisation instructions 
+				// Add initilisation instructions
+		model.rgTables[Constants.SMALL].clear();
+		model.rgTables[Constants.LARGE].clear();
+
+		model.rgPersonnel[Constants.COOKS].numBusy = 0;
+		model.rgPersonnel[Constants.WAITERS].numBusy = 0;
+
+		for(Service qS : model.qService)
+			qS.clear();
 	}
 	
 
