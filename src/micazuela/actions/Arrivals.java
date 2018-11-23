@@ -17,7 +17,12 @@ public class Arrivals extends ScheduledAction{
         CustomerGroup icCustomerGroup = new CustomerGroup();
         icCustomerGroup.size = model.rvp.uCustomerGroupSize();
         icCustomerGroup.arrivalTime = model.getClock();
-        model.qService[model.udp.tableSize(icCustomerGroup)].spInsertQueue(icCustomerGroup);
+        int sizeId = model.udp.tableSize(icCustomerGroup);
+        if(model.qService[sizeId].getN() < 2){
+            model.qService[sizeId].spInsertQueue(icCustomerGroup);
+        } else {
+            model.output.countCustomerGroupBalking++;
+        }
         
     }
 }

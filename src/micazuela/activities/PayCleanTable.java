@@ -31,6 +31,10 @@ public class PayCleanTable extends ConditionalActivity{
     protected void terminatingEvent() {
         model.rgTables[model.udp.tableSize(icCustomerGroup)].removeGrp(icCustomerGroup);
         model.rgPersonnel[Constants.WAITERS].numBusy--;
+
+        double t = model.getClock();
+        model.output.timeSpent.put(t,t-icCustomerGroup.arrivalTime);
+        model.output.profitDay += (model.rvp.duCustomerBill()-1)*icCustomerGroup.size;
     }
 
 }

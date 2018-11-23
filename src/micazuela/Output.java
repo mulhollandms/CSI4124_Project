@@ -1,6 +1,8 @@
 package micazuela;
 
-class Output 
+import simulationModelling.OutputSequence;
+
+public class Output 
 {
 	MiCazuela model;
 	
@@ -9,7 +11,17 @@ class Output
     // Trajectory Sequences
 
     // Sample Sequences
-
+    public OutputSequence timeWaiting;
+    public OutputSequence timeSpent;
+    
+    public double avgTimeWaiting(){
+        timeWaiting.computePhiDSOVs();
+        return timeWaiting.getMean();
+    }
+    public double avgTimeSpent(){
+        timeSpent.computePhiDSOVs();
+        return timeSpent.getMean();
+    }
     // DSOVs available in the OutputSequence objects
     // If seperate methods required to process Trajectory or Sample
     // Sequences - add them here

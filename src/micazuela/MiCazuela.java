@@ -1,5 +1,6 @@
 package micazuela;
 
+import micazuela.actions.Arrivals;
 import micazuela.activities.*;
 import micazuela.entities.*;
 import simulationModelling.AOSimulationModel;
@@ -23,7 +24,7 @@ public class MiCazuela extends AOSimulationModel
 	// Objects can be created here or in the Initialise Action
 	public Tables [] rgTables = new Tables[2];
 	public Personnel [] rgPersonnel = new Personnel[2];
-	public Service [] qService = new Service[2];
+	public Service [] qService = new Service[5];
 
 	/* Input Variables */
 	// Define any Independent Input Varaibles here
@@ -51,6 +52,7 @@ public class MiCazuela extends AOSimulationModel
 
 		// Create RVP object with given seed
 		rvp = new RVPs(this,sd);
+		numArrivals = rvp.duCGArrCount();
 		
 		// rgCounter and qCustLine objects created in Initalise Action
 		for(int i=0; i<rgTables.length; i++)
@@ -71,6 +73,9 @@ public class MiCazuela extends AOSimulationModel
 		Initialise init = new Initialise(this);
 		scheduleAction(init);  // Should always be first one scheduled.
 		// Schedule other scheduled actions and acitvities here
+
+		Arrivals arr = new Arrivals(this);
+		scheduleAction(arr);
 	}
 
 	/************  Implementation of Data Modules***********/	
@@ -112,7 +117,8 @@ public class MiCazuela extends AOSimulationModel
 	
 	public void eventOccured()
 	{
-		//this.showSBL();
+		System.out.printf("-------->Clock: %f<-----------------\n",getClock());
+		this.showSBL();
 		// Can add other debug code to monitor the status of the system
 		// See examples for suggestions on setup logging
 

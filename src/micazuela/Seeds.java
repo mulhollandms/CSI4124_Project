@@ -6,6 +6,8 @@ public class Seeds
 {
 	int custArr;   // customer arrivals
 	int custArrCount; //customer arrival count
+	int cgSize;
+	int custBill; //customer bill
 	int seatTakeOrder;   // seat take order
 	int orderPrep;   // order prepare
 	int foodDelivery;   // deliver food
@@ -16,6 +18,8 @@ public class Seeds
 	{
 		custArr=rsg.nextSeed();
 		custArrCount=rsg.nextSeed();
+		cgSize=rsg.nextSeed();
+		custBill=rsg.nextSeed();
 		seatTakeOrder=rsg.nextSeed();
 		orderPrep=rsg.nextSeed();
 		foodDelivery=rsg.nextSeed();
