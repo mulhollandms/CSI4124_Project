@@ -69,7 +69,7 @@ public class MiCazuela extends AOSimulationModel
 			qService[i]=new Service();
 		
 		// Initialise the simulation model
-		initAOSimulModel(t0time,tftime);
+		initAOSimulModel(t0time,tftime+60);
 		closingTime=tftime;
 		     // Schedule the first arrivals and employee scheduling
 		Initialise init = new Initialise(this);
@@ -145,6 +145,13 @@ public class MiCazuela extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
+	@Override
+	protected boolean implicitStopCondition(){
+		if(getClock() >= closingTime){
+			return (rgTables[Constants.LARGE].getN()==0 && rgTables[Constants.SMALL].getN()==0);
+		}
+		return false;
+	}
 }
 
 
