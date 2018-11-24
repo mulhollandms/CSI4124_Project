@@ -36,7 +36,7 @@ class Experiment
             balkCount[i]=simModel.output.countCustomerGroupBalking;
             waitTime[i]=simModel.output.avgTimeWaiting();
             timeSpent[i]=simModel.output.avgTimeSpent();
-            System.out.printf("*Terminated simulation run %d*",i+1);
+            System.out.printf("*Terminated simulation run %d*\n",i+1);
             // See examples for hints on collecting output
             // and developping code for analysis
        }
