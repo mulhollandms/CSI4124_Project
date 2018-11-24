@@ -40,8 +40,18 @@ public class MiCazuela extends AOSimulationModel
 	
 	// Output values - define the public methods that return values
 	// required for experimentation.
-
-
+	public double getProfitDay(){
+		return output.profitDay;
+	}
+	public double getCountCustomerGroupBalking(){
+		return output.countCustomerGroupBalking;
+	}
+	public double getAvgTimeWaiting(){
+		return output.avgTimeWaiting();
+	}
+	public double getAvgTimeSpent(){
+		return output.avgTimeSpent();
+	}
 	// Constructor
 	public MiCazuela(double t0time, double tftime, int rgTablesLargeCap, int numCooks, int numWaiters, boolean usingAHD, Seeds sd, boolean traceLogFlag)
 	{

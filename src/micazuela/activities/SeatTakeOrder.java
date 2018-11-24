@@ -30,7 +30,7 @@ public class SeatTakeOrder extends ConditionalActivity{
         model.rgPersonnel[Constants.WAITERS].numBusy++;
 
         double t = model.getClock();
-        model.output.timeWaiting.put(t,t-icCustomerGroup.arrivalTime);
+        model.output.phiTimeWaiting.put(t,t-icCustomerGroup.arrivalTime);
     }
 
     @Override
