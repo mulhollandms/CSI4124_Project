@@ -79,7 +79,7 @@ public class MiCazuela extends AOSimulationModel
 			qService[i]=new Service();
 		
 		// Initialise the simulation model
-		initAOSimulModel(t0time,tftime+60);
+		initAOSimulModel(t0time,tftime+120);
 		closingTime=tftime;
 		     // Schedule the first arrivals and employee scheduling
 		Initialise init = new Initialise(this);
