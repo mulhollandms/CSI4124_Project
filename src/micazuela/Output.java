@@ -11,12 +11,12 @@ public class Output
     // Trajectory Sequences
 
     // Sample Sequences
-    public OutputSequence timeWaiting;
+    public OutputSequence phiTimeWaiting;
     public OutputSequence timeSpent;
     
     public double avgTimeWaiting(){
-        timeWaiting.computePhiDSOVs();
-        return timeWaiting.getMean();
+        phiTimeWaiting.computePhiDSOVs();
+        return phiTimeWaiting.getMean();
     }
     public double avgTimeSpent(){
         timeSpent.computePhiDSOVs();

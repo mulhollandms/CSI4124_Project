@@ -40,8 +40,18 @@ public class MiCazuela extends AOSimulationModel
 	
 	// Output values - define the public methods that return values
 	// required for experimentation.
-
-
+	public double getProfitDay(){
+		return output.profitDay;
+	}
+	public double getCountCustomerGroupBalking(){
+		return output.countCustomerGroupBalking;
+	}
+	public double getAvgTimeWaiting(){
+		return output.avgTimeWaiting();
+	}
+	public double getAvgTimeSpent(){
+		return output.avgTimeSpent();
+	}
 	// Constructor
 	public MiCazuela(double t0time, double tftime, int rgTablesLargeCap, int numCooks, int numWaiters, boolean usingAHD, Seeds sd, boolean traceLogFlag)
 	{
@@ -69,7 +79,7 @@ public class MiCazuela extends AOSimulationModel
 			qService[i]=new Service();
 		
 		// Initialise the simulation model
-		initAOSimulModel(t0time,tftime);
+		initAOSimulModel(t0time,tftime+120);
 		closingTime=tftime;
 		     // Schedule the first arrivals and employee scheduling
 		Initialise init = new Initialise(this);
@@ -145,6 +155,13 @@ public class MiCazuela extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
+	@Override
+	protected boolean implicitStopCondition(){
+		if(getClock() >= closingTime){
+			return (rgTables[Constants.LARGE].getN()==0 && rgTables[Constants.SMALL].getN()==0);
+		}
+		return false;
+	}
 }
 
 
