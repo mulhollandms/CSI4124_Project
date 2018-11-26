@@ -14,10 +14,8 @@ public class MiCazuela extends AOSimulationModel
 	// Constants available from Constants class
 	/* Parameter */
         // Define the parameters
-	public int rgTablesLargeCap=4;
-	public int numCooks=2,numWaiters=2;
 	public boolean usingAHD=false;
-	public double closingTime;
+	
 	/*-------------Entity Data Structures-------------------*/
 	/* Group and Queue Entities */
 	// Define the reference variables to the various 
@@ -74,6 +72,8 @@ public class MiCazuela extends AOSimulationModel
 
 		for(int i=0; i<rgPersonnel.length; i++)
 			rgPersonnel[i]=new Personnel();
+		rgPersonnel[Constants.COOKS].numTotal=numCooks;
+		rgPersonnel[Constants.WAITERS].numTotal=numWaiters;
 		
 		for(int i=0; i<qService.length; i++)
 			qService[i]=new Service();
@@ -155,6 +155,8 @@ public class MiCazuela extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
+
+	public double closingTime;
 	@Override
 	protected boolean implicitStopCondition(){
 		if(getClock() >= closingTime){
