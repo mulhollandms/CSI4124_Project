@@ -54,9 +54,6 @@ public class MiCazuela extends AOSimulationModel
 	public MiCazuela(double t0time, double tftime, int rgTablesLargeCap, int numCooks, int numWaiters, boolean usingAHD, Seeds sd, boolean traceLogFlag)
 	{
 		// Initialise parameters here
-		this.rgTablesLargeCap=rgTablesLargeCap;
-		this.numCooks=numCooks;
-		this.numWaiters=numWaiters;
 		this.usingAHD=usingAHD;
 		this.traceLogFlag=traceLogFlag;
 
@@ -137,8 +134,8 @@ public class MiCazuela extends AOSimulationModel
 			System.out.printf("RG.Personnel[COOKS].numBusy = %d, RG.Personnel[WAITERS].numBusy = %d\n",rgPersonnel[Constants.COOKS].numBusy,rgPersonnel[Constants.WAITERS].numBusy);
 			System.out.printf("RG.Tables[LARGE].n = %d, RG.Tables[SMALL].n = %d\n\n",rgTables[Constants.LARGE].getN(),rgTables[Constants.SMALL].getN());
 			System.out.printf("Q.Service[IN].n = %d, Q.Service[OUT].n = %d, Q.Service[PAYMENT].n = %d\n\n",qService[Constants.IN].getN(),qService[Constants.OUT].getN(),qService[Constants.PAYMENT].getN());
-			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTablesLargeCap,numCooks);
-			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",numWaiters,usingAHD);
+			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTables[Constants.LARGE].capacity,rgPersonnel[Constants.COOKS].numTotal);
+			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",rgPersonnel[Constants.WAITERS].numTotal,usingAHD);
 			this.showSBL();
 		}
 		// Can add other debug code to monitor the status of the system
