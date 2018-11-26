@@ -34,7 +34,7 @@ public class PayCleanTable extends ConditionalActivity{
 
         double t = model.getClock();
         model.output.timeSpent.put(t,t-icCustomerGroup.arrivalTime);
-        model.output.profitDay += (model.rvp.duCustomerBill()-1)*icCustomerGroup.size;
+        model.output.profitDay += (model.rvp.uCustomerBill()-1)*icCustomerGroup.size;
     }
 
 }
