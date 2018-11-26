@@ -33,6 +33,8 @@ public class RVPs
 
 	}
 
+	// GAComment: not consistent with CM
+	// the means depend on the total number of arrivals (See the CM
 	static final double MEAN_ARR_1=0.1;
 	static final double MEAN_ARR_2=0.2;
 	static final double MEAN_ARR_3=0.55;
@@ -59,6 +61,8 @@ public class RVPs
 		return arriveAt;
 	}
 
+	// GAComment: the following needs to be combined with the duCGArr() RVP. That is, the value of the random value needs to be used 
+	//            to determine the mean interarrival times as shown in the CM.
 	static final double MIN_CGCOUNT=30.0;
 	static final double MAX_CGCOUNT=50.0;
 	Uniform cgArrCount;
@@ -73,13 +77,15 @@ public class RVPs
 		return customerGroupSize.nextInt();
 	}
 
+	
 	static final double MIN_CUSTOMER_BILL=10.0;
 	static final double MAX_CUSTOMER_BILL=16.0;
 	Uniform customerBill;
-	public double duCustomerBill(){
+	public double uCustomerBill(){
 		return customerBill.nextDouble();
 	}
 
+	// GAComment: Not consistent with CM.  CM shows three random variate generators.  Only one is used here. Please review.
 	static final double MEAN_SEAT=2.0, MEAN_TAKEORDER=3.0, MEAN_DELIVERORDER=2.0;
 	static final double VAR_SEAT=0.5, VAR_TAKEORDER=0.7, VAR_DELIVERORDER=0.5;
 	static final double MEAN_TAKEORDER_DELIVER_AHD=1.5, VAR_TAKEORDER_DELIVER_AHD=1.2;
@@ -91,6 +97,7 @@ public class RVPs
 			return seatTakeOrder.nextDouble();
 	}
 
+	// GAComment: Not consistent with CM.  CM shows two random variate generators.  Only one is used here. Please review.
 	static final double MEAN_ORDERPREP=7.0,VAR_ORDERPREP=1.5;
 	Normal orderPrep;
 	public double duOrderPrep(){
