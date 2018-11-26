@@ -76,8 +76,8 @@ public class RVPs
 	static final double MIN_CUSTOMER_BILL=10.0;
 	static final double MAX_CUSTOMER_BILL=16.0;
 	Uniform customerBill;
-	public double duCustomerBill(){
-		return customerBill.nextDouble();
+	public double duCustomerBill(int icCustomerGroupSize){
+		return (customerBill.nextDouble()-1)*icCustomerGroupSize;
 	}
 
 	static final double MEAN_SEAT=2.0, MEAN_TAKEORDER=3.0, MEAN_DELIVERORDER=2.0;
