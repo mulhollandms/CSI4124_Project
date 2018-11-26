@@ -19,6 +19,7 @@ public class Arrivals extends ScheduledAction{
         icCustomerGroup.arrivalTime = model.getClock();
         int sizeId = model.udp.tableSize(icCustomerGroup);
         if(model.qService[sizeId].getN() < 2){
+			icCustomerGroup.timeEnterLine = model.getClock();
             model.qService[sizeId].spInsertQueue(icCustomerGroup);
         } else {
             model.output.countCustomerGroupBalking++;
