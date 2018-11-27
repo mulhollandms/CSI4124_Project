@@ -82,9 +82,9 @@ public class RVPs
 	Normal seat, takeOrder, deliverOrder, takeOrderDeliverAHD;
 	public double duSeatTakeOrder(){
 		if(model.usingAHD)
-			return seat.nextDouble()+takeOrder.nextDouble()+deliverOrder.nextDouble();
-		else
 			return seat.nextDouble()+takeOrderDeliverAHD.nextDouble();
+		else
+			return seat.nextDouble()+takeOrder.nextDouble()+deliverOrder.nextDouble();
 	}
 
 	static final double MEAN_COOKING=5.0,MEAN_BRINGOUTFOOD=2.0;
