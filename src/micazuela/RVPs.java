@@ -24,9 +24,10 @@ public class RVPs
 		//cgArrCount = new Uniform(MIN_CGCOUNT,MAX_CGCOUNT,sd.custArrCount);
 		customerGroupSize = new Uniform(MIN_GROUPSIZE, MAX_GROUPSIZE, sd.cgSize);
 		customerBill = new Uniform(MIN_CUSTOMER_BILL,MAX_CUSTOMER_BILL,sd.custBill);
-		seatTakeOrder = new Normal(MEAN_SEAT+MEAN_TAKEORDER+MEAN_DELIVERORDER,
-										VAR_SEAT+VAR_TAKEORDER+VAR_DELIVERORDER,
-										new MersenneTwister(sd.seatTakeOrder));
+		seat = new Normal(MEAN_SEAT, VAR_SEAT, new MersenneTwister(sd.seating));
+		takeOrder = new Normal(MEAN_TAKEORDER, VAR_TAKEORDER, new MersenneTwister(sd.ordering));
+		deliverOrder = new Normal(MEAN_DELIVERORDER, VAR_DELIVERORDER, new MersenneTwister(sd.orderDelivery));
+		takeOrderDeliverAHD = new Normal(MEAN_TAKEORDER_DELIVER_AHD, VAR_TAKEORDER_DELIVER_AHD, new MersenneTwister(sd.ahd));
 		orderPrep = new Normal(MEAN_ORDERPREP,VAR_ORDERPREP, new MersenneTwister(sd.orderPrep));
 		serveTime = new Normal(MEAN_SERVETIME,VAR_SERVETIME, new MersenneTwister(sd.foodDelivery));
 		eatTime = new Normal(MEAN_EATTIME,VAR_EATTIME, new MersenneTwister(sd.eatTm));
@@ -77,12 +78,12 @@ public class RVPs
 	static final double MEAN_SEAT=2.0, MEAN_TAKEORDER=3.0, MEAN_DELIVERORDER=2.0;
 	static final double VAR_SEAT=0.5, VAR_TAKEORDER=0.7, VAR_DELIVERORDER=0.5;
 	static final double MEAN_TAKEORDER_DELIVER_AHD=1.5, VAR_TAKEORDER_DELIVER_AHD=1.2;
-	Normal seatTakeOrder;
+	Normal seat, takeOrder, deliverOrder, takeOrderDeliverAHD;
 	public double duSeatTakeOrder(){
 		if(model.usingAHD)
-			return seatTakeOrder.nextDouble(MEAN_SEAT+MEAN_TAKEORDER_DELIVER_AHD, VAR_SEAT+VAR_TAKEORDER_DELIVER_AHD);
+			return seat.nextDouble()+takeOrder.nextDouble()+deliverOrder.nextDouble();
 		else
-			return seatTakeOrder.nextDouble();
+			return seat.nextDouble()+takeOrderDeliverAHD.nextDouble();
 	}
 
 	static final double MEAN_ORDERPREP=7.0,VAR_ORDERPREP=1.5;
