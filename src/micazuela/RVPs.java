@@ -8,11 +8,11 @@ import cern.jet.random.engine.MersenneTwister;
 public class RVPs 
 {
 	MiCazuela model; // for accessing the clock
+	int n;
     // Data Models - i.e. random veriate generators for distributions
 	// are created using Colt classes, define 
 	// reference variables here and create the objects in the
 	// constructor with seeds
-
 
 	// Constructor
 	protected RVPs(MiCazuela model, Seeds sd) 
