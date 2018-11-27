@@ -1,6 +1,9 @@
 package micazuela.entities;
 
 public class Personnel{
-    public int numBusy = 0;
-    public int numTotal = 2;
+	public static final int WAITERS=0,
+                            COOKS=1;
+    
+    public int numBusy;
+    public int numTotal;
 }

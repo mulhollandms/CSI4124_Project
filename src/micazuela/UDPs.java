@@ -1,6 +1,6 @@
 package micazuela;
 
-import micazuela.entities.CustomerGroup;
+import micazuela.entities.*;
 
 public class UDPs 
 {
@@ -36,7 +36,7 @@ public class UDPs
 	//    id = tableSize(icCustomerGroupSize);
 	//   and then use id as the identifier
 	public int canSeatGroup(){
-		if(model.rgPersonnel[Constants.WAITERS].numBusy < model.rgPersonnel[Constants.WAITERS].numTotal){
+		if(model.rgPersonnel[Personnel.WAITERS].numBusy < model.rgPersonnel[Personnel.WAITERS].numTotal){
 			int largeLineN = model.qService[Constants.LARGE].getN(),
 				smallLineN = model.qService[Constants.SMALL].getN();
 			if(largeLineN >= smallLineN && largeLineN > 0 && model.rgTables[Constants.LARGE].getN() < model.rgTables[Constants.LARGE].capacity){

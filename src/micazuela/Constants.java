@@ -10,13 +10,11 @@ public class Constants
 	public static final double OVERHEAD_COST = 300.0;
 	public static final double AHD_COST = 12.0;
 
-	public static final int SMALL=0,
-								LARGE=1,
+	public static final int SMALL=0,    // GAComment - Did not find these in the Constants table - I suspect that they are part of a number of entity structures in the CM
+								LARGE=1, //            Add them to where they are defined.
 								IN=2,
 								OUT=3,
 								PAYMENT=4,
-								WAITERS=0,
-								COOKS=1,
 								NONE=-1;
 	
 }

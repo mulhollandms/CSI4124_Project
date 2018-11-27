@@ -2,7 +2,7 @@ package micazuela.activities;
 
 import micazuela.Constants;
 import micazuela.MiCazuela;
-import micazuela.entities.CustomerGroup;
+import micazuela.entities.*;
 import simulationModelling.ConditionalActivity;
 
 public class SeatTakeOrder extends ConditionalActivity{
@@ -25,7 +25,7 @@ public class SeatTakeOrder extends ConditionalActivity{
         int sizeId = model.udp.canSeatGroup();
         icCustomerGroup = model.qService[sizeId].spRemoveQueue();
         model.rgTables[sizeId].insertGrp(icCustomerGroup);
-        model.rgPersonnel[Constants.WAITERS].numBusy++;
+        model.rgPersonnel[Personnel.WAITERS].numBusy++;
 
         double t = model.getClock();
         model.output.phiTimeWaiting.put(t,t-icCustomerGroup.arrivalTime);
@@ -34,7 +34,7 @@ public class SeatTakeOrder extends ConditionalActivity{
     @Override
     protected void terminatingEvent() {
         model.qService[Constants.IN].spInsertQueue(icCustomerGroup);
-        model.rgPersonnel[Constants.WAITERS].numBusy--;
+        model.rgPersonnel[Personnel.WAITERS].numBusy--;
     }
 
 }
