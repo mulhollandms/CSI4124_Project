@@ -11,8 +11,8 @@ public class PayCleanTable extends ConditionalActivity{
     MiCazuela model;
 
     public static boolean precondition(MiCazuela simModel){
-        return simModel.rgPersonnel[Constants.WAITERS].numBusy < simModel.rgPersonnel[Constants.WAITERS].numTotal
-            && simModel.qService[Constants.PAYMENT].getN() > 0;
+        return simModel.qService[Constants.PAYMENT].getN() > 0
+            && simModel.rgPersonnel[Constants.WAITERS].numTotal > simModel.rgPersonnel[Constants.WAITERS].numBusy;
     }
 
     public PayCleanTable(MiCazuela model){this.model = model;}
@@ -34,7 +34,7 @@ public class PayCleanTable extends ConditionalActivity{
 
         double t = model.getClock();
         model.output.timeSpent.put(t,t-icCustomerGroup.arrivalTime);
-        model.output.profitDay += (model.rvp.uCustomerBill()-1)*icCustomerGroup.size;
+        model.output.profitDay += (model.rvp.uCustomerBill(icCustomerGroup.size));
     }
 
 }

@@ -9,8 +9,8 @@ public class DeliverFood extends ConditionalActivity{
     CustomerGroup icCustomerGroup;
     MiCazuela model;
     public static boolean precondition(MiCazuela simModel){
-        return simModel.rgPersonnel[Constants.WAITERS].numBusy < simModel.rgPersonnel[Constants.WAITERS].numTotal
-            && simModel.qService[Constants.OUT].getN() > 0;
+        return simModel.qService[Constants.OUT].getN() > 0
+            && simModel.rgPersonnel[Constants.WAITERS].numTotal > simModel.rgPersonnel[Constants.WAITERS].numBusy;
     }
     public DeliverFood(MiCazuela model){this.model = model;}
     @Override

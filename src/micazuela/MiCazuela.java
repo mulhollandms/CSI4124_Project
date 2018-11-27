@@ -14,10 +14,8 @@ public class MiCazuela extends AOSimulationModel
 	// Constants available from Constants class
 	/* Parameter */
         // Define the parameters
-	public int rgTablesLargeCap=4;
-	public int numCooks=2,numWaiters=2;
 	public boolean usingAHD=false;
-	public double closingTime;
+	
 	/*-------------Entity Data Structures-------------------*/
 	/* Group and Queue Entities */
 	// Define the reference variables to the various 
@@ -56,15 +54,11 @@ public class MiCazuela extends AOSimulationModel
 	public MiCazuela(double t0time, double tftime, int rgTablesLargeCap, int numCooks, int numWaiters, boolean usingAHD, Seeds sd, boolean traceLogFlag)
 	{
 		// Initialise parameters here
-		this.rgTablesLargeCap=rgTablesLargeCap;
-		this.numCooks=numCooks;
-		this.numWaiters=numWaiters;
 		this.usingAHD=usingAHD;
 		this.traceLogFlag=traceLogFlag;
 
 		// Create RVP object with given seed
 		rvp = new RVPs(this,sd);
-		numArrivals = rvp.duCGArrCount();
 		
 		// rgCounter and qCustLine objects created in Initalise Action
 		for(int i=0; i<rgTables.length; i++)
@@ -74,7 +68,9 @@ public class MiCazuela extends AOSimulationModel
 
 		for(int i=0; i<rgPersonnel.length; i++)
 			rgPersonnel[i]=new Personnel();
-		
+		rgPersonnel[Constants.COOKS].numTotal=numCooks;
+		rgPersonnel[Constants.WAITERS].numTotal=numWaiters;
+
 		for(int i=0; i<qService.length; i++)
 			qService[i]=new Service();
 		
@@ -97,17 +93,13 @@ public class MiCazuela extends AOSimulationModel
 	public void testPreconditions(Behaviour behObj)
 	{
 		reschedule (behObj);
-		if(SeatTakeOrder.precondition(this,Constants.LARGE)){
-			SeatTakeOrder act = new SeatTakeOrder(this, Constants.LARGE);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
-		if(SeatTakeOrder.precondition(this,Constants.SMALL)){
-			SeatTakeOrder act = new SeatTakeOrder(this, Constants.SMALL);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
+		
 		// Check preconditions of Conditional Activities
+		if(SeatTakeOrder.precondition(this)){
+			SeatTakeOrder act = new SeatTakeOrder(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
 		if(CookFood.precondition(this)){
 			CookFood act = new CookFood(this);
 			act.startingEvent();
@@ -137,8 +129,8 @@ public class MiCazuela extends AOSimulationModel
 			System.out.printf("RG.Personnel[COOKS].numBusy = %d, RG.Personnel[WAITERS].numBusy = %d\n",rgPersonnel[Constants.COOKS].numBusy,rgPersonnel[Constants.WAITERS].numBusy);
 			System.out.printf("RG.Tables[LARGE].n = %d, RG.Tables[SMALL].n = %d\n\n",rgTables[Constants.LARGE].getN(),rgTables[Constants.SMALL].getN());
 			System.out.printf("Q.Service[IN].n = %d, Q.Service[OUT].n = %d, Q.Service[PAYMENT].n = %d\n\n",qService[Constants.IN].getN(),qService[Constants.OUT].getN(),qService[Constants.PAYMENT].getN());
-			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTablesLargeCap,numCooks);
-			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",numWaiters,usingAHD);
+			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTables[Constants.LARGE].capacity,rgPersonnel[Constants.COOKS].numTotal);
+			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",rgPersonnel[Constants.WAITERS].numTotal,usingAHD);
 			this.showSBL();
 		}
 		// Can add other debug code to monitor the status of the system
@@ -155,6 +147,8 @@ public class MiCazuela extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
+
+	public double closingTime;
 	@Override
 	protected boolean implicitStopCondition(){
 		if(getClock() >= closingTime){

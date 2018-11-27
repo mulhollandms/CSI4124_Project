@@ -8,19 +8,20 @@ import cern.jet.random.engine.MersenneTwister;
 public class RVPs 
 {
 	MiCazuela model; // for accessing the clock
+	int n;
     // Data Models - i.e. random veriate generators for distributions
 	// are created using Colt classes, define 
 	// reference variables here and create the objects in the
 	// constructor with seeds
 
-
 	// Constructor
 	protected RVPs(MiCazuela model, Seeds sd) 
 	{ 
 		this.model = model; 
+		n = new Uniform(30,50,sd.custArrCount).nextInt();
 		// Set up distribution functions
-		cgArr = new Exponential(MEAN_ARR_1, new MersenneTwister(sd.custArr));
-		cgArrCount = new Uniform(MIN_CGCOUNT,MAX_CGCOUNT,sd.custArrCount);
+		cgArr = new Exponential(n*0.1/60.0, new MersenneTwister(sd.custArr));
+		//cgArrCount = new Uniform(MIN_CGCOUNT,MAX_CGCOUNT,sd.custArrCount);
 		customerGroupSize = new Uniform(MIN_GROUPSIZE, MAX_GROUPSIZE, sd.cgSize);
 		customerBill = new Uniform(MIN_CUSTOMER_BILL,MAX_CUSTOMER_BILL,sd.custBill);
 		seatTakeOrder = new Normal(MEAN_SEAT+MEAN_TAKEORDER+MEAN_DELIVERORDER,
@@ -33,37 +34,30 @@ public class RVPs
 
 	}
 
-	static final double MEAN_ARR_1=0.1;
-	static final double MEAN_ARR_2=0.2;
-	static final double MEAN_ARR_3=0.55;
-	static final double MEAN_ARR_4=0.1;
-	static final double MEAN_ARR_5=0.05;
+	static final double ARRIVAL_PERIOD_1=0.1;
+	static final double ARRIVAL_PERIOD_2=0.2;
+	static final double ARRIVAL_PERIOD_3=0.55;
+	static final double ARRIVAL_PERIOD_4=0.1;
+	static final double ARRIVAL_PERIOD_5=0.05;
 	Exponential cgArr;
 	public double duCGarr(){
 		double t = model.getClock();
-		double x;
+		double MEAN_INTER_ARR_CG;
 		if(t<61){
-			x = 60/MEAN_ARR_1;
+			MEAN_INTER_ARR_CG = 60/ARRIVAL_PERIOD_1/n;
 		} else if (t<121){
-			x = 60/MEAN_ARR_2;
+			MEAN_INTER_ARR_CG = 60/ARRIVAL_PERIOD_2/n;
 		} else if (t<241){
-			x = 120/MEAN_ARR_3;
+			MEAN_INTER_ARR_CG = 120/ARRIVAL_PERIOD_3/n;
 		} else if (t<301){
-			x = 60/MEAN_ARR_4;
+			MEAN_INTER_ARR_CG = 60/ARRIVAL_PERIOD_4/n;
 		} else {
-			x = 60/MEAN_ARR_5;
+			MEAN_INTER_ARR_CG = 60/ARRIVAL_PERIOD_5/n;
 		}
-		double arriveAt = cgArr.nextDouble(model.numArrivals/x)+model.getClock();
+		double arriveAt = cgArr.nextDouble(1/MEAN_INTER_ARR_CG)+model.getClock();
 		if(arriveAt > model.closingTime)
 			return -1.0;
 		return arriveAt;
-	}
-
-	static final double MIN_CGCOUNT=30.0;
-	static final double MAX_CGCOUNT=50.0;
-	Uniform cgArrCount;
-	public int duCGArrCount(){
-		return cgArrCount.nextInt();
 	}
 
 	static final double MIN_GROUPSIZE=1;
@@ -76,8 +70,8 @@ public class RVPs
 	static final double MIN_CUSTOMER_BILL=10.0;
 	static final double MAX_CUSTOMER_BILL=16.0;
 	Uniform customerBill;
-	public double duCustomerBill(){
-		return customerBill.nextDouble();
+	public double duCustomerBill(int icCustomerGroupSize){
+		return (customerBill.nextDouble()-1)*icCustomerGroupSize;
 	}
 
 	static final double MEAN_SEAT=2.0, MEAN_TAKEORDER=3.0, MEAN_DELIVERORDER=2.0;

@@ -8,25 +8,23 @@ import simulationModelling.ConditionalActivity;
 public class SeatTakeOrder extends ConditionalActivity{
     CustomerGroup icCustomerGroup;
     MiCazuela model;
-    int tableSize;
-    public static boolean precondition(MiCazuela simModel, int tableSize){
-        return simModel.rgPersonnel[Constants.WAITERS].numBusy < simModel.rgPersonnel[Constants.WAITERS].numTotal
-            && simModel.qService[tableSize].getN() > 0 && simModel.udp.canSeatGroup(tableSize)!=Constants.NONE;
+       
+    public static boolean precondition(MiCazuela simModel){
+        return simModel.udp.canSeatGroup()!=Constants.NONE;
     }
 
-    public SeatTakeOrder(MiCazuela model,int tableSize){
-        this.model = model;
-        this.tableSize = tableSize;
-    }
+    public SeatTakeOrder(MiCazuela model){ this.model = model;}
     @Override
     protected double duration() {
         return model.rvp.duSeatTakeOrder();
     }
 
     @Override
+    // GAComment: need to use the UPD as indicated in the CM to get the sizeid
     public void startingEvent() {
-        icCustomerGroup = model.qService[tableSize].spRemoveQueue();
-        model.rgTables[tableSize].insertGrp(icCustomerGroup);
+        int sizeId = model.udp.canSeatGroup();
+        icCustomerGroup = model.qService[sizeId].spRemoveQueue();
+        model.rgTables[sizeId].insertGrp(icCustomerGroup);
         model.rgPersonnel[Constants.WAITERS].numBusy++;
 
         double t = model.getClock();
