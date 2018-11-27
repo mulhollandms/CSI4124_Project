@@ -71,7 +71,7 @@ public class MiCazuela extends AOSimulationModel
 			rgPersonnel[i]=new Personnel();
 		rgPersonnel[Constants.COOKS].numTotal=numCooks;
 		rgPersonnel[Constants.WAITERS].numTotal=numWaiters;
-		
+
 		for(int i=0; i<qService.length; i++)
 			qService[i]=new Service();
 		
@@ -94,17 +94,13 @@ public class MiCazuela extends AOSimulationModel
 	public void testPreconditions(Behaviour behObj)
 	{
 		reschedule (behObj);
-		if(SeatTakeOrder.precondition(this,Constants.LARGE)){
-			SeatTakeOrder act = new SeatTakeOrder(this, Constants.LARGE);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
-		if(SeatTakeOrder.precondition(this,Constants.SMALL)){
-			SeatTakeOrder act = new SeatTakeOrder(this, Constants.SMALL);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
+		
 		// Check preconditions of Conditional Activities
+		if(SeatTakeOrder.precondition(this)){
+			SeatTakeOrder act = new SeatTakeOrder(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
 		if(CookFood.precondition(this)){
 			CookFood act = new CookFood(this);
 			act.startingEvent();
