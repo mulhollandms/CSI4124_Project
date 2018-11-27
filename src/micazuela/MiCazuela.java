@@ -63,8 +63,8 @@ public class MiCazuela extends AOSimulationModel
 		// rgCounter and qCustLine objects created in Initalise Action
 		for(int i=0; i<rgTables.length; i++)
 			rgTables[i]=new Tables();
-		rgTables[Constants.LARGE].capacity = rgTablesLargeCap;
-		rgTables[Constants.SMALL].capacity = 11-2*rgTablesLargeCap;
+		rgTables[Tables.LARGE].capacity = rgTablesLargeCap;
+		rgTables[Tables.SMALL].capacity = 11-2*rgTablesLargeCap;
 
 		for(int i=0; i<rgPersonnel.length; i++)
 			rgPersonnel[i]=new Personnel();
@@ -125,11 +125,11 @@ public class MiCazuela extends AOSimulationModel
 		// System.out.printf("-------->Clock: %f<-----------------\n",getClock());
 		if(traceLogFlag){
 			System.out.printf("-------->Clock: %f<-----------------\n",getClock());
-			System.out.printf("Current State:\nQ.Service[LARGE].n = %d, Q.Service[SMALL].n = %d\n\n",qService[Constants.LARGE].getN(),qService[Constants.SMALL].getN());
+			System.out.printf("Current State:\nQ.Service[LARGE].n = %d, Q.Service[SMALL].n = %d\n\n",qService[Service.LARGE].getN(),qService[Service.SMALL].getN());
 			System.out.printf("RG.Personnel[COOKS].numBusy = %d, RG.Personnel[WAITERS].numBusy = %d\n",rgPersonnel[Personnel.COOKS].numBusy,rgPersonnel[Personnel.WAITERS].numBusy);
-			System.out.printf("RG.Tables[LARGE].n = %d, RG.Tables[SMALL].n = %d\n\n",rgTables[Constants.LARGE].getN(),rgTables[Constants.SMALL].getN());
-			System.out.printf("Q.Service[IN].n = %d, Q.Service[OUT].n = %d, Q.Service[PAYMENT].n = %d\n\n",qService[Constants.IN].getN(),qService[Constants.OUT].getN(),qService[Constants.PAYMENT].getN());
-			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTables[Constants.LARGE].capacity,rgPersonnel[Personnel.COOKS].numTotal);
+			System.out.printf("RG.Tables[LARGE].n = %d, RG.Tables[SMALL].n = %d\n\n",rgTables[Tables.LARGE].getN(),rgTables[Tables.SMALL].getN());
+			System.out.printf("Q.Service[IN].n = %d, Q.Service[OUT].n = %d, Q.Service[PAYMENT].n = %d\n\n",qService[Service.IN].getN(),qService[Service.OUT].getN(),qService[Service.PAYMENT].getN());
+			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTables[Tables.LARGE].capacity,rgPersonnel[Personnel.COOKS].numTotal);
 			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",rgPersonnel[Personnel.WAITERS].numTotal,usingAHD);
 			this.showSBL();
 		}
@@ -152,7 +152,7 @@ public class MiCazuela extends AOSimulationModel
 	@Override
 	protected boolean implicitStopCondition(){
 		if(getClock() >= closingTime){
-			return (rgTables[Constants.LARGE].getN()==0 && rgTables[Constants.SMALL].getN()==0);
+			return (rgTables[Tables.LARGE].getN()==0 && rgTables[Tables.SMALL].getN()==0);
 		}
 		return false;
 	}

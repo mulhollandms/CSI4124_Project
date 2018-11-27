@@ -1,6 +1,5 @@
 package micazuela.activities;
 
-import micazuela.Constants;
 import micazuela.MiCazuela;
 import micazuela.entities.*;
 import simulationModelling.ConditionalActivity;
@@ -10,7 +9,7 @@ public class SeatTakeOrder extends ConditionalActivity{
     MiCazuela model;
        
     public static boolean precondition(MiCazuela simModel){
-        return simModel.udp.canSeatGroup()!=Constants.NONE;
+        return simModel.udp.canSeatGroup()!=Tables.NONE;
     }
 
     public SeatTakeOrder(MiCazuela model){ this.model = model;}
@@ -33,7 +32,7 @@ public class SeatTakeOrder extends ConditionalActivity{
 
     @Override
     protected void terminatingEvent() {
-        model.qService[Constants.IN].spInsertQueue(icCustomerGroup);
+        model.qService[Service.IN].spInsertQueue(icCustomerGroup);
         model.rgPersonnel[Personnel.WAITERS].numBusy--;
     }
 

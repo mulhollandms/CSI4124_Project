@@ -11,7 +11,7 @@ public class PayCleanTable extends ConditionalActivity{
     MiCazuela model;
 
     public static boolean precondition(MiCazuela simModel){
-        return simModel.qService[Constants.PAYMENT].getN() > 0
+        return simModel.qService[Service.PAYMENT].getN() > 0
             && simModel.rgPersonnel[Personnel.WAITERS].numTotal > simModel.rgPersonnel[Personnel.WAITERS].numBusy;
     }
 
@@ -23,7 +23,7 @@ public class PayCleanTable extends ConditionalActivity{
 
     @Override
     public void startingEvent() {
-        icCustomerGroup = model.qService[Constants.PAYMENT].spRemoveQueue();
+        icCustomerGroup = model.qService[Service.PAYMENT].spRemoveQueue();
         model.rgPersonnel[Personnel.WAITERS].numBusy++;
     }
 

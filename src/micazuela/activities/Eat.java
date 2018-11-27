@@ -2,7 +2,7 @@ package micazuela.activities;
 
 import micazuela.Constants;
 import micazuela.MiCazuela;
-import micazuela.entities.CustomerGroup;
+import micazuela.entities.*;
 import simulationModelling.SequelActivity;
 
 public class Eat extends SequelActivity{
@@ -27,7 +27,7 @@ public class Eat extends SequelActivity{
 
     @Override
     protected void terminatingEvent() {
-        model.qService[Constants.PAYMENT].spInsertQueue(icCustomerGroup);
+        model.qService[Service.PAYMENT].spInsertQueue(icCustomerGroup);
     }
     
 

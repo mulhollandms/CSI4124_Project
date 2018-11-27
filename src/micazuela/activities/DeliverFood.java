@@ -9,7 +9,7 @@ public class DeliverFood extends ConditionalActivity{
     CustomerGroup icCustomerGroup;
     MiCazuela model;
     public static boolean precondition(MiCazuela simModel){
-        return simModel.qService[Constants.OUT].getN() > 0
+        return simModel.qService[Service.OUT].getN() > 0
             && simModel.rgPersonnel[Personnel.WAITERS].numTotal > simModel.rgPersonnel[Personnel.WAITERS].numBusy;
     }
     public DeliverFood(MiCazuela model){this.model = model;}
@@ -20,7 +20,7 @@ public class DeliverFood extends ConditionalActivity{
 
     @Override
     public void startingEvent() {
-        icCustomerGroup = model.qService[Constants.OUT].spRemoveQueue();
+        icCustomerGroup = model.qService[Service.OUT].spRemoveQueue();
         model.rgPersonnel[Personnel.WAITERS].numBusy++;
     }
 
