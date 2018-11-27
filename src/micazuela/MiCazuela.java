@@ -59,7 +59,6 @@ public class MiCazuela extends AOSimulationModel
 
 		// Create RVP object with given seed
 		rvp = new RVPs(this,sd);
-		numArrivals = rvp.duCGArrCount();
 		
 		// rgCounter and qCustLine objects created in Initalise Action
 		for(int i=0; i<rgTables.length; i++)
