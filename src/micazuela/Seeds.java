@@ -12,7 +12,8 @@ public class Seeds
 	int ordering;
 	int orderDelivery;
 	int ahd;
-	int orderPrep;   // order prepare
+	int cooking;
+	int bringfood;
 	int foodDelivery;   // deliver food
 	int eatTm;   // eat time
 	int payLeave;   // pay and leave
@@ -27,7 +28,8 @@ public class Seeds
 		ordering=rsg.nextSeed();
 		orderDelivery=rsg.nextSeed();
 		ahd=rsg.nextSeed();
-		orderPrep=rsg.nextSeed();
+		cooking=rsg.nextSeed();
+		bringfood=rsg.nextSeed();
 		foodDelivery=rsg.nextSeed();
 		eatTm=rsg.nextSeed();
 		payLeave=rsg.nextSeed();
@@ -35,7 +37,7 @@ public class Seeds
 	
 	public String toString() {
 		return("CustArr: "+custArr+"  seating: "+seating+"  ordering: "+ordering+"  orderDelivery: "+orderDelivery+"  ahd: "+ahd
-		+"  orderPrep: "+orderPrep+"  foodDelivery: "+foodDelivery+"  eatTm: "+eatTm+"  PayLeave: "+payLeave);
+		+"  bringfood: "+bringfood+"  foodDelivery: "+foodDelivery+"  eatTm: "+eatTm+"  PayLeave: "+payLeave);
 	}
 
 	
