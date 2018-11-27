@@ -70,7 +70,7 @@ public class RVPs
 	static final double MIN_CUSTOMER_BILL=10.0;
 	static final double MAX_CUSTOMER_BILL=16.0;
 	Uniform customerBill;
-	public double duCustomerBill(int icCustomerGroupSize){
+	public double uCustomerBill(int icCustomerGroupSize){
 		return (customerBill.nextDouble()-1)*icCustomerGroupSize;
 	}
 
