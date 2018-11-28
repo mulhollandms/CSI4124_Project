@@ -19,7 +19,6 @@ public class SeatTakeOrder extends ConditionalActivity{
     }
 
     @Override
-    // GAComment: need to use the UPD as indicated in the CM to get the sizeid
     public void startingEvent() {
         int sizeId = model.udp.canSeatGroup();
         icCustomerGroup = model.qService[sizeId].spRemoveQueue();

@@ -30,11 +30,7 @@ public class UDPs
 		return icCustomerGroup.size < 3 ? Tables.SMALL : Tables.LARGE;
 	}
 
-	// GAComment:  the logic doe not seem correct to me.  You are using icCustomerGroupSize as 
-	//   the identifier for rgTables.  This is not what is describe in the CM.
-	//   YOu can use the tableSize UDP to get the ID first as in
-	//    id = tableSize(icCustomerGroupSize);
-	//   and then use id as the identifier
+	
 	public int canSeatGroup(){
 		if(model.rgPersonnel[Personnel.WAITERS].numBusy < model.rgPersonnel[Personnel.WAITERS].numTotal){
 			int largeLineN = model.qService[Service.LARGE].getN(),
