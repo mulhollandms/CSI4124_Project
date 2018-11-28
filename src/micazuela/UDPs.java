@@ -1,6 +1,6 @@
 package micazuela;
 
-import micazuela.entities.CustomerGroup;
+import micazuela.entities.*;
 
 public class UDPs 
 {
@@ -27,26 +27,22 @@ public class UDPs
         }
 	------------------------------------------------------------*/
 	public int tableSize(CustomerGroup icCustomerGroup){
-		return icCustomerGroup.size < 3 ? Constants.SMALL : Constants.LARGE;
+		return icCustomerGroup.size < 3 ? Tables.SMALL : Tables.LARGE;
 	}
 
-	// GAComment:  the logic doe not seem correct to me.  You are using icCustomerGroupSize as 
-	//   the identifier for rgTables.  This is not what is describe in the CM.
-	//   YOu can use the tableSize UDP to get the ID first as in
-	//    id = tableSize(icCustomerGroupSize);
-	//   and then use id as the identifier
+	
 	public int canSeatGroup(){
-		if(model.rgPersonnel[Constants.WAITERS].numBusy < model.rgPersonnel[Constants.WAITERS].numTotal){
-			int largeLineN = model.qService[Constants.LARGE].getN(),
-				smallLineN = model.qService[Constants.SMALL].getN();
-			if(largeLineN >= smallLineN && largeLineN > 0 && model.rgTables[Constants.LARGE].getN() < model.rgTables[Constants.LARGE].capacity){
-				return Constants.LARGE;
+		if(model.rgPersonnel[Personnel.WAITERS].numBusy < model.rgPersonnel[Personnel.WAITERS].numTotal){
+			int largeLineN = model.qService[Service.LARGE].getN(),
+				smallLineN = model.qService[Service.SMALL].getN();
+			if(largeLineN >= smallLineN && largeLineN > 0 && model.rgTables[Tables.LARGE].getN() < model.rgTables[Tables.LARGE].capacity){
+				return Tables.LARGE;
 			}
-			if(smallLineN > 0 && model.rgTables[Constants.SMALL].getN() < model.rgTables[Constants.SMALL].capacity){
-				return Constants.SMALL;
+			if(smallLineN > 0 && model.rgTables[Tables.SMALL].getN() < model.rgTables[Tables.SMALL].capacity){
+				return Tables.SMALL;
 			}
 		}
-		return Constants.NONE;
+		return Tables.NONE;
 	}
 	
 }

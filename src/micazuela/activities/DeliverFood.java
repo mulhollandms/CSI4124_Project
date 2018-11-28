@@ -2,15 +2,15 @@ package micazuela.activities;
 
 import micazuela.Constants;
 import micazuela.MiCazuela;
-import micazuela.entities.CustomerGroup;
+import micazuela.entities.*;
 import simulationModelling.ConditionalActivity;
 
 public class DeliverFood extends ConditionalActivity{
     CustomerGroup icCustomerGroup;
     MiCazuela model;
     public static boolean precondition(MiCazuela simModel){
-        return simModel.qService[Constants.OUT].getN() > 0
-            && simModel.rgPersonnel[Constants.WAITERS].numTotal > simModel.rgPersonnel[Constants.WAITERS].numBusy;
+        return simModel.qService[Service.OUT].getN() > 0
+            && simModel.rgPersonnel[Personnel.WAITERS].numTotal > simModel.rgPersonnel[Personnel.WAITERS].numBusy;
     }
     public DeliverFood(MiCazuela model){this.model = model;}
     @Override
@@ -20,13 +20,13 @@ public class DeliverFood extends ConditionalActivity{
 
     @Override
     public void startingEvent() {
-        icCustomerGroup = model.qService[Constants.OUT].spRemoveQueue();
-        model.rgPersonnel[Constants.WAITERS].numBusy++;
+        icCustomerGroup = model.qService[Service.OUT].spRemoveQueue();
+        model.rgPersonnel[Personnel.WAITERS].numBusy++;
     }
 
     @Override
     protected void terminatingEvent() {
-        model.rgPersonnel[Constants.WAITERS].numBusy--;
+        model.rgPersonnel[Personnel.WAITERS].numBusy--;
         model.spStart(new Eat(model, icCustomerGroup));
     }
 
