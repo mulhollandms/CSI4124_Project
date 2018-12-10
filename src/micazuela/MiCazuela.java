@@ -122,7 +122,6 @@ public class MiCazuela extends AOSimulationModel
 	boolean traceLogFlag = false;
 	public void eventOccured()
 	{
-		// System.out.printf("-------->Clock: %f<-----------------\n",getClock());
 		if(traceLogFlag){
 			System.out.printf("-------->Clock: %f<-----------------\n",getClock());
 			System.out.printf("Current State:\nQ.Service[LARGE].n = %d, Q.Service[SMALL].n = %d\n\n",qService[Service.LARGE].getN(),qService[Service.SMALL].getN());

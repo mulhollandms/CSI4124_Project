@@ -1,6 +1,5 @@
 package micazuela.activities;
 
-import micazuela.Constants;
 import micazuela.MiCazuela;
 import micazuela.entities.*;
 import simulationModelling.ConditionalActivity;

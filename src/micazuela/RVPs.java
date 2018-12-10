@@ -21,7 +21,6 @@ public class RVPs
 		n = new Uniform(30,50,sd.custArrCount).nextInt();
 		// Set up distribution functions
 		cgArr = new Exponential(n*0.1/60.0, new MersenneTwister(sd.custArr));
-		//cgArrCount = new Uniform(MIN_CGCOUNT,MAX_CGCOUNT,sd.custArrCount);
 		customerGroupSize = new Uniform(MIN_GROUPSIZE, MAX_GROUPSIZE, sd.cgSize);
 		customerBill = new Uniform(MIN_CUSTOMER_BILL,MAX_CUSTOMER_BILL,sd.custBill);
 		seat = new Normal(MEAN_SEAT, VAR_SEAT, new MersenneTwister(sd.seating));

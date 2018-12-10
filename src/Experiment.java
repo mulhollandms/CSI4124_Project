@@ -40,11 +40,5 @@ class Experiment
             // See examples for hints on collecting output
             // and developping code for analysis
        }
-       ConfidenceInterval profitConf = new ConfidenceInterval(profitDay, 0.9973);
-       ConfidenceInterval balkConf = new ConfidenceInterval(balkCount, 0.9973);
-       ConfidenceInterval waitConf = new ConfidenceInterval(waitTime, 0.9973);
-       ConfidenceInterval spentConf = new ConfidenceInterval(timeSpent, 0.9973);
-
-       System.out.printf("profit range: CI(%.2f,%.2f)\naverage balking: %.2f\ntime spent: CI(%.2f,%.2f)\nwaiting time: CI(%.2f,%.2f)\n",profitConf.getCfMin(),profitConf.getCfMax(),balkConf.getPointEstimate(),spentConf.getCfMin(),spentConf.getCfMax(),waitConf.getCfMin(),waitConf.getCfMax());
    }
 }
