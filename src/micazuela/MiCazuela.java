@@ -41,7 +41,7 @@ public class MiCazuela extends AOSimulationModel
 	public double getProfitDay(){
 		return output.profitDay;
 	}
-	public double getCountCustomerGroupBalking(){
+	public int getCountCustomerGroupBalking(){
 		return output.countCustomerGroupBalking;
 	}
 	public double getAvgTimeWaiting(){
@@ -131,6 +131,7 @@ public class MiCazuela extends AOSimulationModel
 			System.out.printf("Q.Service[IN].n = %d, Q.Service[OUT].n = %d, Q.Service[PAYMENT].n = %d\n\n",qService[Service.IN].getN(),qService[Service.OUT].getN(),qService[Service.PAYMENT].getN());
 			System.out.printf("RG.Tables[LARGE].capacity = %d, RG.Personnel[COOKS].numTotal = %d\n",rgTables[Tables.LARGE].capacity,rgPersonnel[Personnel.COOKS].numTotal);
 			System.out.printf("RG.Personnel[WAITERS].numTotal = %d, usingAHD = %b\n",rgPersonnel[Personnel.WAITERS].numTotal,usingAHD);
+			System.out.printf("countCustomerGroupBalking = %d, profitDay = %f\n",getCountCustomerGroupBalking(), getProfitDay());
 			this.showSBL();
 		}
 		// Can add other debug code to monitor the status of the system
