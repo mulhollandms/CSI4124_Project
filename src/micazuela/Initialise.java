@@ -35,9 +35,10 @@ class Initialise extends ScheduledAction
 		model.output.timeSpent = new OutputSequence("phiTimeSpent");
 		model.output.phiTimeWaiting = new OutputSequence("phiTimeWaiting");
 		model.output.countCustomerGroupBalking = 0;
-		model.output.profitDay -= model.rgPersonnel[Personnel.COOKS].numTotal*Constants.COOK_SALARY
-			+model.rgPersonnel[Personnel.WAITERS].numTotal*Constants.WAITER_SALARY+Constants.OVERHEAD_COST
-			+model.rgPersonnel[Personnel.WAITERS].numTotal*Constants.AHD_COST;
+		model.output.profitDay = -(model.rgPersonnel[Personnel.COOKS].numTotal*Constants.COOK_SALARY
+			+model.rgPersonnel[Personnel.WAITERS].numTotal*Constants.WAITER_SALARY+Constants.OVERHEAD_COST);
+		if(model.usingAHD)
+			model.output.profitDay -= model.rgPersonnel[Personnel.WAITERS].numTotal*Constants.AHD_COST;
 	}
 	
 

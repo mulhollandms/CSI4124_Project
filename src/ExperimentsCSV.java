@@ -5,12 +5,13 @@ import micazuela.*;
 import outputAnalysis.ConfidenceInterval;
 import cern.jet.random.engine.*;
 import java.util.Arrays;
+import java.io.*;
 
 // Main Method: Experiments
 // 
 class ExperimentsCSV
 {
-	
+	static PrintWriter pw;
 	private static void runcase(double startTime, double endTime, int numRuns, int numLargeTables, int[] personnelConfig, boolean usingAHD, boolean enableTraceLogs)
 	{ 
 	   Seeds[] sds = new Seeds[numRuns];
@@ -47,7 +48,7 @@ class ExperimentsCSV
 		   timeSpent[i]=simModel.output.avgTimeSpent();
 		//    System.out.println("~~Ending run: "+Integer.toString(i)+"~~");
 	   }
-	   int[] runCounts = {64,128,256,512,1024,2048,4096};
+	   int[] runCounts = {32,64,128,256,512,1024,2048,4096};
        int n;
         for(int i=0; i<runCounts.length; i++){
 			n = runCounts[i];
@@ -55,7 +56,7 @@ class ExperimentsCSV
 			ConfidenceInterval balkConf = new ConfidenceInterval(Arrays.copyOfRange(balkCount,0,n-1), 0.9973);
 			ConfidenceInterval waitConf = new ConfidenceInterval(Arrays.copyOfRange(waitTime,0,n-1), 0.9973);
 			ConfidenceInterval spentConf = new ConfidenceInterval(Arrays.copyOfRange(timeSpent,0,n-1), 0.9973);
-			System.out.printf("%d,%d,%d,%d,%b,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+			pw.printf("%d,%d,%d,%d,%b,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
                                 n,
                                 numLargeTables,
                                 personnelConfig[0],
@@ -81,6 +82,7 @@ class ExperimentsCSV
 								spentConf.getCfMin(),
 								spentConf.getCfMax(),
 								spentConf.getZeta());
+				pw.flush();
         //    System.out.printf("profit range: CI(%.2f,%.2f)\naverage balking: %.2f\ntime spent: CI(%.2f,%.2f)\nwaiting time: CI(%.2f,%.2f)\n",profitConf.getCfMin(),profitConf.getCfMax(),balkConf.getPointEstimate(),spentConf.getCfMin(),spentConf.getCfMax(),waitConf.getCfMin(),waitConf.getCfMax());
         }
     }
@@ -90,7 +92,7 @@ class ExperimentsCSV
 	   final double startTime = 0.0, endTime = 360.0;
 	   final int numRuns = 4096;
 	   String str_runs = Integer.toString(numRuns);
-	   final int[] tableArrangements = { 4, 2, 1, 2, 3, 5 };
+	   final int[] tableArrangements = { 1, 2, 3, 4, 5 };
 	   								   //^ BASE CASE
 	   
 	   final int[][] personnelArrangements = {
@@ -150,20 +152,33 @@ class ExperimentsCSV
 	   
 	   //all the cases
 	//    System.out.println(">Testing each and every combination: ");
+	try{
+	pw = new PrintWriter(new File("outputdata.csv"));
+	pw.println("n,RG.Tables[LARGE].capacity,RG.Personnel[COOKS].numTotal,RG.Personnel[WAITERS].numTotal,usingAHD,profit mean,profit sd,profit CI min,profit CI max,profit CI zeta,"
+				+"balk avg,balk sd,balk CI min,balk CI max,balk zeta,"
+				+"wait avg,wait sd,wait CI min,wait CI max,wait zeta,"
+				+"spent avg,spent sd,spent CI min,spent CI max,spent zeta");
+	} catch(Exception e){
+		e.printStackTrace();
+		System.exit(1);
+	}
+	int k = 0;
 	   for(int numLargeTable: tableArrangements){
 		   for(int[] currentPersonnelArrangement: personnelArrangements){
 			   for(boolean currentAhdCase: ahdArrangements){
-				   String largeTables = Integer.toString(numLargeTable);
-				   String cooks = Integer.toString(currentPersonnelArrangement[0]);
-				   String waiters = Integer.toString(currentPersonnelArrangement[1]);
-				   String ahdenabled = (currentAhdCase) ? "enabled" : "disabled";
-				   
+				//    String largeTables = Integer.toString(numLargeTable);
+				//    String cooks = Integer.toString(currentPersonnelArrangement[0]);
+				//    String waiters = Integer.toString(currentPersonnelArrangement[1]);
+				//    String ahdenabled = (currentAhdCase) ? "enabled" : "disabled";
+				   k++;
+				   System.out.printf("Running Simulation Set: %d/90\r",k);
 				//    System.out.println("~Starting "+str_runs+" tests with "+largeTables+" tables, "+cooks+" cooks, "+waiters+" waiters, and automated hand-held devices "+ahdenabled+"~");
 				   runcase(startTime, endTime, numRuns, numLargeTable, currentPersonnelArrangement, currentAhdCase, logging);
 				//    System.out.println("~Finished "+str_runs+" tests with "+largeTables+" tables, "+cooks+" cooks, "+waiters+" waiters, and automated hand-held devices "+ahdenabled+"~");
 			   }
 		   }
 	   }
+	   pw.close();
        
    }
 }
